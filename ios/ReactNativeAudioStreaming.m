@@ -1,5 +1,11 @@
+#if __has_include(<React/RCTBridgeModule.h>)
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventDispatcher.h>
+#else
+#import "RCTBridgeModule.h"
+#import "RCTEventDispatcher.h"
+#endif
+
 
 #import "ReactNativeAudioStreaming.h"
 
@@ -444,6 +450,8 @@ RCT_EXPORT_METHOD(getStatus: (RCTResponseSenderBlock) callback)
                                       appName ? appName : @"AppName", MPMediaItemPropertyTitle,
                                       [NSNumber numberWithFloat:isPlaying ? 1.0f : 0.0], MPNowPlayingInfoPropertyPlaybackRate, nil];
       [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nowPlayingInfo;
+   } else {
+      [MPNowPlayingInfoCenter defaultCenter].nowPlayingInfo = nil;
    }
 }
 
